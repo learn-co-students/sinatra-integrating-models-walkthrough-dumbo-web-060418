@@ -8,6 +8,10 @@ class App < Sinatra::Base
 
   post '/' do
     text_from_user = params[:user_text]
+    @arr = text_from_user.split(' ')
+
+    words = TextAnalyzer.new(text_from_user)
+    @vowels = words.count_vowels
 
     erb :results
   end
