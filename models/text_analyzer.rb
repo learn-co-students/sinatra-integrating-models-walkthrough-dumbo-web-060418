@@ -1,18 +1,44 @@
 # Your TextAnalyzer model code will go here.
 class TextAnalyzer
-  attr_accessor :text
+  attr_reader :text
 
   def initialize(text)
-    @text = text
+    @text = text.downcase
   end
 
-  def count_vowels(text_from_user)
-    vowels = 0
-    text_from_user.split('').each do |letter|
-      if letter == 'a' || letter == 'e' || letter == 'i' || letter == 'o' || letter == 'u'
-        vowels += 1
+  def count_of_words
+    words = text.split(" ")
+    words.count
+  end
+
+  def count_of_vowels
+    text.scan(/[aeoui]/).count
+  end
+
+  def count_of_consonants
+    text.scan(/[bcdfghjklmnpqrstvwxyz]/).count
+  end
+
+  def most_used_letter
+    s1 = text.gsub(/[^a-z]/, '') # gets rid of spaces
+    arr = s1.split('')
+    arr1 = arr.uniq
+    arr2 = {}
+
+    arr1.map do |c|
+      arr2[c] =  arr.count(c)
+    end
+
+    biggest = { arr2.keys.first => arr2.values.first }
+
+    arr2.each do |key, value|
+      if value > biggest.values.first
+        biggest = {}
+        biggest[key] = value
       end
     end
-    vowels.to_s
+
+    biggest
   end
+
 end

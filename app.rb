@@ -11,7 +11,11 @@ class App < Sinatra::Base
     @arr = text_from_user.split(' ')
 
     words = TextAnalyzer.new(text_from_user)
-    @vowels = words.count_vowels
+    @vowels = words.count_of_vowels
+
+    @consonants = words.count_of_consonants
+
+    @most_used_letter = words.most_used_letter
 
     erb :results
   end
