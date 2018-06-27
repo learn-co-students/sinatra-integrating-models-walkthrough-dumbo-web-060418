@@ -1,5 +1,6 @@
 require_relative 'config/environment'
 require_relative 'models/text_analyzer.rb'
+require 'pry'
 
 class App < Sinatra::Base
   get '/' do
@@ -7,7 +8,10 @@ class App < Sinatra::Base
   end
 
   post '/' do
-    text_from_user = params[:user_text]
+
+    @analyzed_text = TextAnalyzer.new(params[:user_text])
+    @letter = @analyzed_text.most_used_letter.keys[0]
+    @number = @analyzed_text.most_used_letter.values[0]
 
     erb :results
   end
